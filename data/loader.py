@@ -20,11 +20,6 @@ def download_prices(
     force_reload  : bool      = False,
 ) -> tuple[pd.DataFrame, pd.Series]:
     """
-    Télécharge les prix de clôture ajustés séparément pour :
-      - les actions (dropna ligne = toute l'action manquante ce jour-là)
-      - le benchmark (gardé indépendamment pour ne pas perdre des dates)
-
-    Retourne
     --------
     prices    : DataFrame  (dates × tickers)   — NaN forward-fillés intra-ticker
     benchmark : Series     (dates)              — cours du CAC 40
