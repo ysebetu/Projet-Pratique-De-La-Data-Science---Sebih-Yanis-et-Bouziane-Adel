@@ -12,11 +12,6 @@ class BacktestEngine:
     """
     Simule un portefeuille pondéré sur des données historiques.
 
-    Hypothèses :
-      - Ordres exécutés à la clôture du jour J (regardez-en avant évité
-        grâce au décalage des signaux).
-      - Coûts de transaction = TRANSACTION_COST × |Δw| (aller simple).
-      - Pas de levier, pas de vente à découvert.
     """
 
     def __init__(
@@ -81,7 +76,6 @@ class BacktestEngine:
         benchmark_returns: pd.Series,
         name: str = "Buy & Hold CAC 40",
     ) -> pd.DataFrame:
-        """Simule un achat et maintien du benchmark."""
         nav = (1 + benchmark_returns).cumprod() * self.initial_capital
         result = pd.DataFrame({
             "portfolio_return"  : benchmark_returns,
@@ -96,7 +90,6 @@ class BacktestEngine:
     @staticmethod
     def compare_nav(*results: tuple[str, pd.DataFrame]) -> pd.DataFrame:
         """
-        results : itérable de (nom, result_df)
         Retourne un DataFrame de NAV alignées (dates × stratégies).
         """
         frames = {name: df["nav"] for name, df in results}
